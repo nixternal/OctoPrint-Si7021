@@ -1,0 +1,6 @@
+<p class="nav navbar-text" data-bind="html: si7021, visible: isRaspi"></p>
+<div data-bind="visible: si7021Model.isOperational()" class="nav">
+  <!-- ko foreach: si7021Model.tools -->
+  <p class="nav navbar-text" data-bind="template: { name: 'si7021-template' }"></p>
+  <!-- /ko -->
+</div>
