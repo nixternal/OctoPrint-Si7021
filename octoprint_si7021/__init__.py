@@ -9,7 +9,7 @@ import sys
 
 __author__ = "Rich JOHNSON <nixternal@gmail.com>"
 __license__ = 'The Unlicense http://unlicense.org/'
-__copyright__ = "Copyright (C) 2017 Rich JOHNSON"
+__copyright__ = "Copyright (C) 2017-2018 Rich JOHNSON"
 __github__ = 'https://www.github.com/nixternal/OctoPrint-Si7021'
 
 
@@ -31,7 +31,8 @@ class Si7021Plugin(octoprint.plugin.StartupPlugin,
             match = re.search('^Hardware\s+:\s+(\w+)$',
                               cpuinfo,
                               flags=re.MULTILINE | re.IGNORECASE)
-            if match.group(1) == 'BCM2708' or match.group(1) == 'BCM2709':
+            if match.group(1) == 'BCM2708' or match.group(1) == 'BCM2709' or \
+                    match.group(1) == 'BCM2835':
                 self.isRaspi = True
             else:
                 self.isRaspi = False
@@ -83,7 +84,7 @@ class Si7021Plugin(octoprint.plugin.StartupPlugin,
             if self._checkTimer is not None:
                 try:
                     self._checkTimer.cancel()
-                except:
+                except Exception:
                     pass
             self._plugin_manager.send_plugin_message(self._identifier, dict())
 
@@ -115,6 +116,7 @@ class Si7021Plugin(octoprint.plugin.StartupPlugin,
             )
         )
 
+
 __plugin_name__ = 'Si7021 Sensor Plugin'
 
 
@@ -123,5 +125,6 @@ def __plugin_load__():
     __plugin_implementation__ = Si7021Plugin()
     global __plugin_hooks__
     __plugin_hooks__ = {
-        'octoprint.plugin.softwareupdate.check_config': __plugin_implementation__.get_update_information
+        'octoprint.plugin.softwareupdate.check_config':
+        __plugin_implementation__.get_update_information
     }

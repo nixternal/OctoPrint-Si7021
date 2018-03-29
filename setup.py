@@ -4,7 +4,7 @@ from setuptools import setup
 plugin_identifier = 'si7021'
 plugin_package = 'octoprint_si7021'
 plugin_name = 'OctoPrint-Si7021'
-plugin_version = '1.0'
+plugin_version = '1.1'
 plugin_description = 'Plugin to display Si7021 sensor data to navbar'
 plugin_author = 'Rich Johnson'
 plugin_author_email = 'nixternal@gmail.com'
@@ -18,7 +18,7 @@ additional_setup_parameters = {}
 
 try:
     import octoprint_setuptools
-except:
+except Exception:
     print("Could not import OctoPrint's setuptools, are you sure you are "
           "running that under the same python installation that OctoPrint is "
           "installed under?")
